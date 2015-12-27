@@ -149,7 +149,47 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="img\airfield-05small.tif" />
+    <Image Include="img\alps-03small.tif" />
+    <Image Include="img\ape1.bmp" />
+    <Image Include="img\art2.bmp" />
+    <Image Include="img\art3.bmp" />
+    <Image Include="img\art4.bmp" />
+    <Image Include="img\Bikesgray.jpg" />
+    <Image Include="img\Calvin.bmp" />
+    <Image Include="img\Calvin.jpg" />
+    <Image Include="img\cln1.bmp" />
+    <Image Include="img\deti.bmp" />
+    <Image Include="img\deti.jpg" />
+    <Image Include="img\DETI.png" />
+    <Image Include="img\DETI_Ruido.png" />
+    <Image Include="img\fce5noi1.bmp" />
+    <Image Include="img\fce5noi2.bmp" />
+    <Image Include="img\fce5noi3.bmp" />
+    <Image Include="img\fce5noi4.bmp" />
+    <Image Include="img\fce5noi6.bmp" />
+    <Image Include="img\Fruits-RGB.tif" />
+    <Image Include="img\input.png" />
+    <Image Include="img\ireland-03small.tif" />
+    <Image Include="img\ireland-06-01.tif" />
+    <Image Include="img\ireland-06-02.tif" />
+    <Image Include="img\ireland-06-03.tif" />
+    <Image Include="img\ireland-06-04.tif" />
+    <Image Include="img\ireland-06-05.tif" />
+    <Image Include="img\ireland-06-06.tif" />
+    <Image Include="img\lena-saltandpepper.tif" />
     <Image Include="img\lena.jpg" />
+    <Image Include="img\Lena_Ruido.png" />
+    <Image Include="img\mon1.bmp" />
+    <Image Include="img\Orchid.bmp" />
+    <Image Include="img\Orchid.jpg" />
+    <Image Include="img\pix-jpeg.tif" />
+    <Image Include="img\pix-orig.tif" />
+    <Image Include="img\sta2.bmp" />
+    <Image Include="img\sta2noi1.bmp" />
+    <Image Include="img\TAC_PULMAO.bmp" />
+    <Image Include="img\TAC_PULMAO.tif" />
+    <Image Include="img\tools_2.png" />
     <Image Include="img\wdg2.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

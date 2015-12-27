@@ -264,3 +264,4 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/cv2015-OpenCV/cv2015-OpenCV/CannyTest.cpp

@@ -29,5 +29,125 @@
     <Image Include="img\lena.jpg">
       <Filter>Source Files\img</Filter>
     </Image>
+    <Image Include="img\airfield-05small.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\alps-03small.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\ape1.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\art2.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\art3.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\art4.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\Bikesgray.jpg">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\Calvin.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\Calvin.jpg">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\cln1.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\deti.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\deti.jpg">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\DETI.png">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\DETI_Ruido.png">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\fce5noi1.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\fce5noi2.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\fce5noi3.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\fce5noi4.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\fce5noi6.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\Fruits-RGB.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\input.png">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\ireland-03small.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\ireland-06-01.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\ireland-06-02.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\ireland-06-03.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\ireland-06-04.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\ireland-06-05.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\ireland-06-06.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\Lena_Ruido.png">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\lena-saltandpepper.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\mon1.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\Orchid.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\Orchid.jpg">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\pix-jpeg.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\pix-orig.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\sta2.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\sta2noi1.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\TAC_PULMAO.bmp">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\TAC_PULMAO.tif">
+      <Filter>Source Files\img</Filter>
+    </Image>
+    <Image Include="img\tools_2.png">
+      <Filter>Source Files\img</Filter>
+    </Image>
   </ItemGroup>
 </Project>
