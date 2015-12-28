@@ -19,18 +19,21 @@ using namespace cv;
 using namespace std;
 
 /// Global variables
-Mat imgOrig, imgOrig_gray;
+Mat imgOrig;
+Mat canny_img, canny_gray;
 Mat dst, detected_edges;
+Mat grad, sobel_img, sobel_gray;
 
 int edgeThresh = 1;
 int lowThreshold;
 int const max_lowThreshold = 255;
 int ratio = 3;
 int kernel_size = 3;
-string windowName = "Original Image";
+string windowName[] = { "Original Image", "Canny Edge Detector", "Sobel Edge Detector" };
 
 /// Functions
 void CannyThreshold(int, void*);
+void SobelDerivatives();
 void printImageFeatures(const Mat &imagem);
 
 
@@ -61,8 +64,8 @@ int main( void ) /// int argc, char** argv
 		cout << "Ficheiro nao foi aberto ou localizado !!" << endl;
 		return -1;
 	}
-	namedWindow(windowName, WINDOW_AUTOSIZE); // Window
-	imshow(windowName, imgOrig); // Show image
+	namedWindow(windowName[0], WINDOW_AUTOSIZE); // Window
+	imshow(windowName[0], imgOrig); // Show image
 	cout << endl << "Original Image:";
 	printImageFeatures(imgOrig); // Show information about image
 
@@ -70,14 +73,29 @@ int main( void ) /// int argc, char** argv
 	// --------------- Canny Edge Detector ----------------
 	// Create a matrix of the same type and size as src (for dst)
 	dst.create(imgOrig.size(), imgOrig.type());
+	canny_img = imgOrig.clone();
 	// Convert the image to grayscale
-	cvtColor(imgOrig, imgOrig_gray, COLOR_BGR2GRAY);
-	windowName = "Canny Edge Detector";
-	namedWindow(windowName, WINDOW_AUTOSIZE); // Window
+	cvtColor(canny_img, canny_gray, COLOR_BGR2GRAY);
+	namedWindow(windowName[1], WINDOW_AUTOSIZE); // Window
 	// Create a Trackbar for user to enter threshold
-	createTrackbar("Min Threshold:", windowName, &lowThreshold, max_lowThreshold, CannyThreshold);
+	createTrackbar("Min Threshold:", windowName[1], &lowThreshold, max_lowThreshold, CannyThreshold);
 	// Show the image
 	CannyThreshold(0, 0);
+
+	cout << endl << "Canny Image:";
+	printImageFeatures(dst); // Show information about image
+
+
+	// --------------- Sobel Edge Detector ----------------
+	sobel_img = imgOrig.clone();
+	// Convert the image to grayscale
+	cvtColor(imgOrig, sobel_gray, COLOR_BGR2GRAY);
+	// Call function
+	SobelDerivatives();
+
+	cout << endl << "Sobel Image:";
+	printImageFeatures(grad); // Show information about image
+
 
 
 	/// FINAL ---------------------------------------------
@@ -96,7 +114,7 @@ int main( void ) /// int argc, char** argv
 */
 void CannyThreshold(int, void*) {
 	/// Reduce noise with a kernel 3x3
-	blur(imgOrig_gray, detected_edges, Size(3, 3));
+	blur(canny_gray, detected_edges, Size(3, 3));
 
 	/// Canny detector
 	Canny(detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size);
@@ -104,8 +122,40 @@ void CannyThreshold(int, void*) {
 	/// Using Canny's output as a mask, we display our result
 	dst = Scalar::all(0);
 
-	imgOrig.copyTo(dst, detected_edges);
-	imshow(windowName, dst);
+	canny_img.copyTo(dst, detected_edges);
+	imshow(windowName[1], dst);
+}
+
+
+/**
+* @function SobelDerivatives
+* @brief Trackbar callback - Applies the Sobel Operator and generates as output an 
+*                            image with the detected edges bright on a darker background.
+*/
+void SobelDerivatives() {
+	int scale = 1;
+	int delta = 0;
+	int ddepth = CV_16S;
+
+	GaussianBlur(sobel_img, sobel_img, Size(3, 3), 0, 0, BORDER_DEFAULT);
+
+	namedWindow(windowName[2], WINDOW_AUTOSIZE); // Window
+	
+	// Generate grad_x and grad_y
+	Mat grad_x, grad_y;
+	Mat abs_grad_x, abs_grad_y;
+	
+	/// Gradient X
+	Sobel(sobel_gray, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT);
+	convertScaleAbs(grad_x, abs_grad_x);
+	
+	/// Gradient Y
+	Sobel(sobel_gray, grad_y, ddepth, 0, 1, 3, scale, delta, BORDER_DEFAULT);
+	convertScaleAbs(grad_y, abs_grad_y);
+	
+	/// Total Gradient (approximate)
+	addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
+	imshow(windowName[2], grad);
 }
 
 
