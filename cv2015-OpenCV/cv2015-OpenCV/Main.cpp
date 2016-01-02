@@ -128,6 +128,15 @@ int main( void ) /// int argc, char** argv
 	printImageFeatures(prewitt_grad); // Show information about image
 
 
+	// ------------- Frei Chen Edge Detector ---------------
+	freichen_img = imgOrig.clone();
+	// Convert the image to grayscale
+	cvtColor(freichen_img, freichen_gray, COLOR_BGR2GRAY);
+	// Call function
+	FreiChenDetector();
+
+	cout << endl << "Frei Chen Image:";
+	printImageFeatures(freichen_grad); // Show information about image
 
 
 	/// FINAL ---------------------------------------------
@@ -275,7 +284,53 @@ void PrewittDetector() {
 }
 
 
+/**
+* @function FreiChenDetector
+* @brief Trackbar callback - Applies four convolutions to image
+*/
+void FreiChenDetector() {
 
+	GaussianBlur(freichen_gray, freichen_gray, Size(3, 3), 0, 0, BORDER_DEFAULT);
+
+	Matx33f mat1 = Matx33f(2, 3, 4, 0, 0, 0, -2, -3, -2);
+	Matx33f mat2 = Matx33f(2, 0, -2, 0, -2, 3, 3, -2, 0);
+	Matx33f mat3 = Matx33f(3, 0, -3, 2, 0, -2, -2, 0, 2);
+	Matx33f mat4 = Matx33f(2, 0, -2, -3, 2, 0, 0, 2, -3);
+	InputArray kernel1 = _InputArray(mat1);
+	InputArray kernel2 = _InputArray(mat2);
+	InputArray kernel3 = _InputArray(mat3);
+	InputArray kernel4 = _InputArray(mat4);
+
+
+	// Generate grad_1, ...
+	Mat grad_1, grad_2, grad_3, grad_4;
+	Mat abs_grad_1, abs_grad_2, abs_grad_3, abs_grad_4;
+
+	/// Gradient 1
+	filter2D(freichen_gray, grad_1, -1, kernel1, Point(-1, -1), 0, BORDER_DEFAULT);
+	convertScaleAbs(grad_1, abs_grad_1);
+
+	/// Gradient 2
+	filter2D(freichen_gray, grad_2, -1, kernel2, Point(-1, -1), 0, BORDER_DEFAULT);
+	convertScaleAbs(grad_2, abs_grad_2);
+
+	/// Gradient 3
+	filter2D(freichen_gray, grad_3, -1, kernel3, Point(-1, -1), 0, BORDER_DEFAULT);
+	convertScaleAbs(grad_3, abs_grad_3);
+
+	/// Gradient 4
+	filter2D(freichen_gray, grad_4, -1, kernel4, Point(-1, -1), 0, BORDER_DEFAULT);
+	convertScaleAbs(grad_4, abs_grad_4);
+
+	/// Total Gradient (approximate)
+	Mat gradient_tmp1, gradient_tmp2, gradient_tmp3;
+	addWeighted(abs_grad_1, 0.5, abs_grad_2, 0.5, 0, gradient_tmp1);
+	addWeighted(abs_grad_3, 0.5, abs_grad_4, 0.5, 0, gradient_tmp2);
+	addWeighted(gradient_tmp1, 0.5, gradient_tmp2, 0.5, 0, freichen_grad);
+
+	namedWindow(windowName[5], WINDOW_AUTOSIZE); // Window
+	imshow(windowName[5], freichen_grad);
+}
 
 
 // FUNCOES AUXILIARES
