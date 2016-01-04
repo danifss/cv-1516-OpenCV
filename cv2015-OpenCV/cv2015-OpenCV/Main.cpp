@@ -26,14 +26,17 @@ Mat sobel_grad, sobel_img, sobel_gray; // Sobel
 Mat robert_grad, robert_img, robert_gray; // Robert
 Mat prewitt_grad, prewitt_img, prewitt_gray; // Prewitt
 Mat freichen_grad, freichen_img, freichen_gray; // Frei Chen
+Mat marrhildreth_img, marrhildreth_gray, marrhildreth_dst; // marr-hildreth
 
 int edgeThresh = 1;
-int lowThreshold;
+int threshold_value_c = 0;
+int threshold_value_mh = 0;
+int lowThreshold = 0;
 int const max_lowThreshold = 255;
 int ratio = 3;
 int kernel_size = 3;
 string windowName[] = { "Original Image", "Canny Edge Detector", "Sobel Edge Detector", "Robert's Edge Detector",
-						"Prewitt Edge Detector", "Frei Chen Detector" };
+						"Prewitt Edge Detector", "Frei Chen Detector", "Marr-Hildreth Edge Detector" };
 
 /// Functions
 void CannyThreshold(int, void*);
@@ -41,6 +44,7 @@ void SobelDerivatives();
 void RobertsDetector();
 void PrewittDetector();
 void FreiChenDetector();
+void MarrHildrethDetector(int, void*);
 
 // Auxiliar functions
 void printImageFeatures(const Mat &imagem);
@@ -87,8 +91,7 @@ int main( void ) /// int argc, char** argv
 	cvtColor(canny_img, canny_gray, COLOR_BGR2GRAY);
 	namedWindow(windowName[1], WINDOW_AUTOSIZE); // Window
 	// Create a Trackbar for user to enter threshold
-	createTrackbar("Min Threshold:", windowName[1], &lowThreshold, max_lowThreshold, CannyThreshold);
-	// Show the image
+	createTrackbar("Canny Threshold:", windowName[1], &threshold_value_c, max_lowThreshold, CannyThreshold);
 	CannyThreshold(0, 0);
 
 	cout << endl << "Canny Image:";
@@ -139,6 +142,19 @@ int main( void ) /// int argc, char** argv
 	printImageFeatures(freichen_grad); // Show information about image
 
 
+	// ------------- Marr-Hildreth Edge Detector ---------------
+	marrhildreth_img = imgOrig.clone();
+	// Convert the image to grayscale
+	cvtColor(marrhildreth_img, marrhildreth_gray, COLOR_BGR2GRAY);
+	namedWindow(windowName[6], WINDOW_AUTOSIZE); // Window
+	// Create Trackbar
+	createTrackbar("Marr-Hildreth Threshold:", windowName[6], &threshold_value_mh, max_lowThreshold, MarrHildrethDetector);
+	MarrHildrethDetector(0, 0);
+
+	cout << endl << "Frei Chen Image:";
+	printImageFeatures(marrhildreth_dst); // Show information about image
+
+
 	/// FINAL ---------------------------------------------
 	// Wait
 	waitKey(0);
@@ -158,7 +174,7 @@ void CannyThreshold(int, void*) {
 	blur(canny_gray, detected_edges, Size(3, 3));
 
 	/// Canny detector
-	Canny(detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size);
+	Canny(detected_edges, detected_edges, lowThreshold, threshold_value_c*ratio, kernel_size);
 
 	/// Using Canny's output as a mask, we display our result
 	canny_dst = Scalar::all(0);
@@ -330,6 +346,33 @@ void FreiChenDetector() {
 
 	namedWindow(windowName[5], WINDOW_AUTOSIZE); // Window
 	imshow(windowName[5], freichen_grad);
+}
+
+
+/**
+* @function MarrHildrethDetector
+*/
+void MarrHildrethDetector(int, void*) {
+	int scale = 1;
+	int delta = 0;
+	int ddepth = CV_16S;
+
+	GaussianBlur(marrhildreth_gray, marrhildreth_gray, Size(3, 3), 0, 0, BORDER_DEFAULT);
+
+	/// Apply Laplace function
+	Mat abs_dst, laplace_dst, thres_dst, tmp_dst;
+
+	Laplacian(marrhildreth_gray, laplace_dst, ddepth, kernel_size, scale, delta, BORDER_DEFAULT);
+	convertScaleAbs(laplace_dst, abs_dst);
+
+	/// Apply Threshold
+	threshold(abs_dst, thres_dst, threshold_value_mh*ratio, max_lowThreshold, 3);
+
+	/// Using Marr-Hildreth's output as a mask, we display our result
+	marrhildreth_dst = Scalar::all(0);
+	marrhildreth_img.copyTo(marrhildreth_dst, thres_dst);
+
+	imshow(windowName[6], marrhildreth_dst);
 }
 
 
