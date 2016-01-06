@@ -64,8 +64,8 @@ int main( void ) /// int argc, char** argv
 	
 	// Read image name
 	string imgName;
-	cout << endl << "Choose an image name:(see img folder) " << endl;
-	cout << "[ lena.jpg, deti.jpg, sta2.bmp, wdg2.bmp, tools_2.png, mon1.bmp, ape1.bmp Bikesgray.jpg ]" << endl;
+	cout << endl << "Choose an image name:(see more in img folder) " << endl;
+	cout << "[ lena.jpg, deti.jpg, sta2.bmp, wdg2.bmp, tools_2.png, mon1.bmp, ape1.bmp, Bikesgray.jpg ]" << endl;
 	cout << endl << "Photo name: ";
 	cin >> imgName;
 
